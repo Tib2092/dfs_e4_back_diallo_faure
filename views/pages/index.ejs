@@ -1,0 +1,21 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<div class="test">
+    <div class="container">
+        <h2>Welcome to my Blog</h2>
+    </div>
+    <form action="/files" method="get">
+        <input type="submit" value="See files/directory">
+    </form>
+    <form action="/files" method="post">
+        <input type="text" name="fileName" value="">
+        <input type="submit" value="Add file">
+    </form>
+    <form action="/delete" method="post">
+        <input type="text" name="fileName" value="">
+        <input type="submit" value="Delete file">
+    </form>
+</div>
+
+
+<%- include('../partials/footer') %>
