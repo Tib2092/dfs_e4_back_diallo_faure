@@ -68,20 +68,6 @@ const execShell = () => {
 //cp.exec('open -a Terminal .')
 
 
-//createFile('testdir.txt')
-//createDir('testdir')
-
-/*
-fs.rename('./views/testdir.txt', './testdir.txt', err=>{
-    if(err){
-        throw err;
-    }
-})
-*/
-//remove('./views/testdir', './testdir')
-//deleteDir('testdir.txt')
-
-
 const myFiles = getFiles('./')
 app.get('/', (req, res) => {
     res.render('pages/index', {
@@ -100,12 +86,23 @@ app.get('/files', (req, res) => {
 app.post('/files', urlencodedParser, (req, res) => {
     const dirTarget = req.body.fileName
     if (dirTarget && dirTarget !=""){
-        createFile(dirTarget)
-        console.log(dirTarget)
-        res.render('pages/files', {
-        myFiles: myFiles,
-        title: 'files views'
-    })
+        if(dirTarget.split(".").length > 1){
+            createFile(dirTarget)
+            //spawn('node', ['index.js'])
+            //console.log(dirTarget)
+            res.render('pages/files', {
+            myFiles: getFiles("./"),
+            title: 'files views'
+            })
+        }else {
+            createDir(dirTarget)
+            //spawn('node', ['index.js'])
+            //console.log(dirTarget)
+            res.render('pages/files', {
+            myFiles: getFiles('./'),
+            title: 'files views'
+            })  
+        }
     }
 })
 
@@ -120,6 +117,21 @@ app.post('/delete', urlencodedParser, (req, res) => {
     })
     } 
 })
+
+app.post('/remove', urlencodedParser, (req, res) => {
+    const sujet = req.body.fileName_1
+    const target = req.body.fileName_2
+    if (sujet && target && sujet !="" && target!=""){
+        remove(sujet, target)
+        console.log(sujet, target)
+        res.render('pages/remove', {
+        sujet: sujet,
+        target: target,
+        title: 'Removed file',
+    })
+    }
+})
+
 
 app.listen(port, () => {
   console.log(`App listening at port ${port}`)

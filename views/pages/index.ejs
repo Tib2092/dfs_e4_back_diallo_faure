@@ -1,20 +1,43 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 <div class="test">
-    <div class="container">
-        <h2>Welcome to my Blog</h2>
+    <div class="get">
+        <div class="container">
+            <h2>Welcome to my Blog</h2>
+        </div>
+        <form action="/files" method="get">
+            <input type="submit" value="See files/directory">
+        </form>
     </div>
-    <form action="/files" method="get">
-        <input type="submit" value="See files/directory">
-    </form>
-    <form action="/files" method="post">
-        <input type="text" name="fileName" value="">
-        <input type="submit" value="Add file">
-    </form>
-    <form action="/delete" method="post">
-        <input type="text" name="fileName" value="">
-        <input type="submit" value="Delete file">
-    </form>
+    
+    <div class="add">
+        <form action="/files" method="post">
+            <input type="text" name="fileName" placeholder="file/directory name">
+            <input type="submit" value="Add file or directory">
+        </form>
+    </div>
+    
+    <div class="delete">
+        <form action="/delete" method="post">
+            <input type="text" name="fileName" placeholder="file/directory name">
+            <input type="submit" value="Delete file/directory">
+        </form>
+    </div>
+
+    <div class="shell">
+        <form action="/files" method="post">
+            <input type="text" name="fileName" placeholder="shell command(ex:ls ./)">
+            <input type="submit" value="send shell command">
+        </form>
+    </div>
+
+    <div class="remove">
+        <form action="/remove" method="post">
+            <input type="text" name="fileName_1" placeholder="exemple:test.txt">
+            <input type="text" name="fileName_2" placeholder="exemple:./views/pages/test.txt">
+            <input type="submit" value="Remove file/directory">
+        </form>
+    </div>
 </div>
 
 
