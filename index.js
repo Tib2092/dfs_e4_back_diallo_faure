@@ -132,7 +132,10 @@ app.post('/delete', urlencodedParser, (req, res) => {
     if (dirTarget && dirTarget !=""){
         deleteDir(dirTarget)
         //console.log(dirTarget)
-        res.redirect('/')
+        res.render('pages/files', {
+            myFiles: getFiles('./'),
+            title: 'files views'
+        })
     } 
 })
 
@@ -143,7 +146,10 @@ app.post('/remove', urlencodedParser, (req, res) => {
     if (sujet && target && sujet !="" && target!=""){
         remove(sujet, target)
         //console.log(sujet, target)
-        res.redirect('/')
+        res.render('pages/files', {
+            myFiles: getFiles('./'),
+            title: 'files views'
+        })
     }
 })
 
