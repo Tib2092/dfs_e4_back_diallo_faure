@@ -1,0 +1,50 @@
+body {
+  background-color: rgba(102, 255, 0, 0.096);
+}
+
+.test {
+  display: block;
+  border: 1px solid black;
+  margin: 4rem auto;
+  padding: 2rem 3rem 3rem;
+  width: 50%;
+  background: rgba(0, 0, 0, 0.589);
+  color: white;        
+}
+
+.add, .delete, .remove, .shell {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.container {
+  margin-left: 50px;
+  margin-bottom: 50px;
+}
+
+#hundleFiles {
+  margin-left : auto;
+  margin-right : auto;
+  width : 80%;
+  text-align : justify;
+  flex-wrap: wrap;
+}
+
+#handleItem {
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  background-color: aquamarine;
+  box-shadow: -10px -10px 0px 0px rgba(100, 100, 100, 0.1);
+}
+
+#titleFile {
+  margin: auto;
+  margin-bottom: 50px;
+  width: 30%;
+  padding-left: 10px;
+  background-color: grey;
+}

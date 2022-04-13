@@ -1,9 +1,10 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 <body>
-    <ul>
+    <h1 id="titleFile">Welcome, here your files</h1>
+    <ul id="hundleFiles">
         <% myFiles.forEach((file)=> { %>
-            <li>
+            <li id="handleItem">
                 <h2>
                     <%= file %>
                 </h2>
