@@ -18,22 +18,21 @@ app.use('/css', express.static(__dirname +'public/css'))
 
 //function that takes a directory path and returns the files of this path
 const getFiles = (myDir) => {
-    return fs.readdirSync(`${myDir}`)
+    return fs.readdirSync(myDir)
 }
 
 
 //function that takes a directory name (path) and creates the directory
 const createDir = (dirName) => {
-    if (fs.existsSync(`${dirName}`) && fs.lstatSync(`${dirName}`).isDirectory()){
+    if (fs.existsSync(dirName) && fs.lstatSync(dirName).isDirectory()){
         console.log('This directory already exists')
     }else {
-        fs.mkdir(`${dirName}`, err => {
+        fs.mkdir(dirName, err => {
             if (err){
                 throw err;
-            }else{
-                console.log('Directory saved with succes')
-                alert(`Directory ${dirName} created with success!`)
             }
+            console.log('Directory saved with succes')
+            alert(`Directory ${dirName} created with success!`)
         })
     }
 
@@ -41,10 +40,10 @@ const createDir = (dirName) => {
 
 //function that takes a file name (path) and creates the file
 const createFile = (fileName) => {
-    if (fs.existsSync(`${fileName}`) && fs.lstatSync(`${fileName}`).isFile()){
+    if (fs.existsSync(fileName) && fs.lstatSync(fileName).isFile()){
         console.log('This file already exists')
     }
-    fs.writeFile(`${fileName}`, "", err => {
+    fs.writeFile(fileName, "", err => {
         if (err){
             throw err;
         }
@@ -55,27 +54,39 @@ const createFile = (fileName) => {
 
 
 //function that takes two existing file/directory paths and moves the files/directories. Ex:remove(testdir.txt, ./views/testdir.txt)
-const remove = (actualPath, targetPath) => {
-    if (fs.existsSync(`${actualPath}`)){
-        fs.rename(`${actualPath}`, `${targetPath}`, err=>{
+const move = (actualPath, targetPath) => {
+    if (fs.existsSync(actualPath)){
+        fs.rename(actualPath, targetPath, err=>{
             if(err){
                 throw err;
             }
         })
-    }console.log('The target path must be a directory')
+        alert(`File ${actualPath} moved with success!`)
+    }
+    console.log('The target path must be a directory')
 }
 
-//function that takes a directory/file name (path) and deletes the directory/file
+//function that takes a directory/file name (path) and deletes the directory/file. Without recusive
 const deleteDir = (fileName) => {
     if (fs.existsSync(fileName)){
         if(fs.lstatSync(fileName).isFile()){
             fs.unlinkSync(fileName)
             alert(`File ${fileName} removed with success!`)
-        }else{
-            cp.exec(`rm -r ${fileName}`)
-            alert(`Directory ${fileName} removed with success!`)
         }
+        cp.exec(`rmdir ${fileName}`)
+        alert(`Directory ${fileName} removed with success!`)
     }
+}
+
+
+//function that takes a directory/file name (path) and deletes the directory/file. Without recusive true.Use this function with care
+const deleteDirRecursively = (nameFile) => {
+    fs.rm(nameFile,{recursive:true,
+    }, (err) => {
+        if(err){
+            throw err;
+        }
+    })
 }
 
 
@@ -140,11 +151,11 @@ app.post('/delete', urlencodedParser, (req, res) => {
 })
 
 //method post that sends 2 file/directory name to the server and removes first given file/directory
-app.post('/remove', urlencodedParser, (req, res) => {
+app.post('/move', urlencodedParser, (req, res) => {
     const sujet = req.body.fileName_1
     const target = req.body.fileName_2
     if (sujet && target && sujet !="" && target!=""){
-        remove(sujet, target)
+        move(sujet, target)
         //console.log(sujet, target)
         res.render('pages/files', {
             myFiles: getFiles('./'),

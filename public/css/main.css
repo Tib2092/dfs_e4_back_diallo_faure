@@ -12,7 +12,7 @@ body {
   color: white;        
 }
 
-.add, .delete, .remove, .shell {
+.add, .delete, .move, .shell {
   display: flex;
   margin: 10px;
   padding: 10px;
