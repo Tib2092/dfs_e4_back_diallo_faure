@@ -26,13 +26,16 @@ const getFiles = (myDir) => {
 const createDir = (dirName) => {
     if (fs.existsSync(dirName) && fs.lstatSync(dirName).isDirectory()){
         console.log('This directory already exists')
+        alert(`Directory ${dirName} already exists!`)
     }else {
         fs.mkdir(dirName, err => {
             if (err){
                 throw err;
+            }else{
+                //console.log('Directory saved with succes')
+                alert(`Directory ${dirName} created with success!`)
+
             }
-            console.log('Directory saved with succes')
-            alert(`Directory ${dirName} created with success!`)
         })
     }
 
@@ -42,13 +45,15 @@ const createDir = (dirName) => {
 const createFile = (fileName) => {
     if (fs.existsSync(fileName) && fs.lstatSync(fileName).isFile()){
         console.log('This file already exists')
+        alert(`File ${fileName} already exists!`)
     }
     fs.writeFile(fileName, "", err => {
         if (err){
             throw err;
+        }else {
+            //console.log('file saved')
+            alert(`File ${fileName} created with success!`)
         }
-        console.log('file saved')
-        alert(`File ${fileName} created with success!`)
     })
 }
 
@@ -62,8 +67,10 @@ const move = (actualPath, targetPath) => {
             }
         })
         alert(`File ${actualPath} moved with success!`)
+    }else{
+        //console.log('The target path must be a directory')
+        alert('The target path must be a directory')
     }
-    console.log('The target path must be a directory')
 }
 
 //function that takes a directory/file name (path) and deletes the directory/file. Without recusive
@@ -75,6 +82,8 @@ const deleteDir = (fileName) => {
         }
         cp.exec(`rmdir ${fileName}`)
         alert(`Directory ${fileName} removed with success!`)
+    }else {
+        alert(`${fileName} don't exist. Please give a valid name!`)
     }
 }
 
